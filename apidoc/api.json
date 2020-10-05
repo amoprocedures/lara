@@ -1,0 +1,2368 @@
+{
+    "swagger": "2.0",
+    "basePath": "/v1",
+    "externalDocs": {
+        "description": "About The Developer",
+        "url": "mailto:mukeloamos97@gmail.com"
+    },
+    "host": "https://thebridge.ug/ugalara/api",
+    "info": {
+        "description": "This is Farmer app API ",
+        "version": "1.0",
+        "title": "Farmer app API",
+        "termsOfService": "#",
+        "contact": {
+            "email": "mukeloamos97@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "#"
+        }
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "ACCOUNT"
+                ],
+                "summary": "Accessing login to the system",
+                "description": "Credentials for logging into the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Login object must be passed for you to login",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "first_name": {
+                                                    "type": "string"
+                                                },
+                                                "last_name": {
+                                                    "type": "string"
+                                                },
+                                                "user_name": {
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "photo_url": {
+                                                    "type": "string"
+                                                },
+                                                "is_active": {
+                                                    "type": "string"
+                                                },
+                                                "is_deleted": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "ACCOUNT"
+                ],
+                "summary": "Creating the user account no the system",
+                "description": "Registering a new user into the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Login object must be passed for you to login",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "phone": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "user_name": {
+                                    "type": "string",
+                                    "required": false
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "role": {
+                                    "type": "string",
+                                    "required": true,
+                                    "description": "Select in [ admin, user, farmer ]"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/get": {
+            "get": {
+                "tags": [
+                    "PRODUCT"
+                ],
+                "summary": "Accessing all products",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "category_id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "stock": {
+                                                "type": "integer"
+                                            },
+                                            "price": {
+                                                "type": "integer"
+                                            },
+                                            "sale_price": {
+                                                "type": "integer"
+                                            },
+                                            "currency": {
+                                                "type": "string"
+                                            },
+                                            "is_verified": {
+                                                "type": "integer"
+                                            },
+                                            "verified_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "seller_sku": {
+                                                "type": "string"
+                                            },
+                                            "discount": {
+                                                "type": "integer"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "is_deleted": {
+                                                "type": "integer"
+                                            },
+                                            "sub_category_id": {
+                                                "type": "string"
+                                            },
+                                            "high_lights": {
+                                                "type": "integer"
+                                            },
+                                            "sale_start_date": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "sale_end_date": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "size": {
+                                                "type": "string"
+                                            },
+                                            "colors": {
+                                                "type": "string"
+                                            },
+                                            "category": {
+                                                "type": "string"
+                                            },
+                                            "sub_category": {
+                                                "type": "string"
+                                            },
+                                            "product_images": {
+                                                "type": "string"
+                                            },
+                                            "uploader_name": {
+                                                "type": "string"
+                                            },
+                                            "uploader_photo": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/get?": {
+            "get": {
+                "tags": [
+                    "PRODUCT"
+                ],
+                "summary": "Accessing a single product",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_id",
+                        "type": "string",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "type": "string",
+                        "description": "This is huge operational query for users to search any products eg by name,category,sub_category,tags",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "category_id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "stock": {
+                                                "type": "integer"
+                                            },
+                                            "price": {
+                                                "type": "integer"
+                                            },
+                                            "sale_price": {
+                                                "type": "integer"
+                                            },
+                                            "currency": {
+                                                "type": "string"
+                                            },
+                                            "is_verified": {
+                                                "type": "integer"
+                                            },
+                                            "verified_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "seller_sku": {
+                                                "type": "string"
+                                            },
+                                            "discount": {
+                                                "type": "integer"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "is_deleted": {
+                                                "type": "integer"
+                                            },
+                                            "sub_category_id": {
+                                                "type": "string"
+                                            },
+                                            "high_lights": {
+                                                "type": "integer"
+                                            },
+                                            "sale_start_date": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "sale_end_date": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "size": {
+                                                "type": "string"
+                                            },
+                                            "colors": {
+                                                "type": "string"
+                                            },
+                                            "category": {
+                                                "type": "string"
+                                            },
+                                            "sub_category": {
+                                                "type": "string"
+                                            },
+                                            "product_images": {
+                                                "type": "string"
+                                            },
+                                            "uploader_name": {
+                                                "type": "string"
+                                            },
+                                            "uploader_photo": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/put": {
+            "put": {
+                "tags": [
+                    "PRODUCT"
+                ],
+                "summary": "Updating a product",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Login object must be passed for you to login",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string"
+                                },
+                                "values": {
+                                    "type": "string",
+                                    "description": "turn your updated data to a JSON String"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/post": {
+            "post": {
+                "tags": [
+                    "PRODUCT"
+                ],
+                "summary": "Creating a new product",
+                "description": "",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "images[]",
+                        "description": "Choose product images to upload",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "name",
+                        "description": "Product name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "user_id",
+                        "description": "UserID of the uploader",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "sub_category_id",
+                        "description": "SubcategoryID of the product chosen",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "price",
+                        "description": "SubcategoryID of the product chosen",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "description",
+                        "description": "Brief description of the product",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "sale_start_date",
+                        "description": "Start date of the product to start running",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "sale_end_date",
+                        "description": "Start date of the product to start running",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "high_lights",
+                        "description": "Product tags, in which the product falls, eg #vegetable,#pineapples etc",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "currency",
+                        "description": "Currency of the product [ USD,UGX ]",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "discount",
+                        "description": "Discount of the product",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "user_id": {
+                                            "type": "string"
+                                        },
+                                        "category_id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "stock": {
+                                            "type": "integer"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "sale_price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "is_verified": {
+                                            "type": "integer"
+                                        },
+                                        "verified_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "seller_sku": {
+                                            "type": "string"
+                                        },
+                                        "discount": {
+                                            "type": "integer"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "is_deleted": {
+                                            "type": "integer"
+                                        },
+                                        "sub_category_id": {
+                                            "type": "string"
+                                        },
+                                        "high_lights": {
+                                            "type": "integer"
+                                        },
+                                        "sale_start_date": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "sale_end_date": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "size": {
+                                            "type": "string"
+                                        },
+                                        "colors": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "sub_category": {
+                                            "type": "string"
+                                        },
+                                        "product_images": {
+                                            "type": "string"
+                                        },
+                                        "uploader_name": {
+                                            "type": "string"
+                                        },
+                                        "uploader_photo": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/delete?": {
+            "delete": {
+                "tags": [
+                    "PRODUCT"
+                ],
+                "summary": "Deleting a product",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "description": "Id of the product",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "user_id": {
+                                            "type": "string"
+                                        },
+                                        "category_id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "stock": {
+                                            "type": "integer"
+                                        },
+                                        "price": {
+                                            "type": "integer"
+                                        },
+                                        "sale_price": {
+                                            "type": "integer"
+                                        },
+                                        "currency": {
+                                            "type": "string"
+                                        },
+                                        "is_verified": {
+                                            "type": "integer"
+                                        },
+                                        "verified_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "seller_sku": {
+                                            "type": "string"
+                                        },
+                                        "discount": {
+                                            "type": "integer"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "is_deleted": {
+                                            "type": "integer"
+                                        },
+                                        "sub_category_id": {
+                                            "type": "string"
+                                        },
+                                        "high_lights": {
+                                            "type": "integer"
+                                        },
+                                        "sale_start_date": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "sale_end_date": {
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "size": {
+                                            "type": "string"
+                                        },
+                                        "colors": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "sub_category": {
+                                            "type": "string"
+                                        },
+                                        "product_images": {
+                                            "type": "string"
+                                        },
+                                        "uploader_name": {
+                                            "type": "string"
+                                        },
+                                        "uploader_photo": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/get": {
+            "get": {
+                "tags": [
+                    "USER"
+                ],
+                "summary": "Accessing all users",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "first_name": {
+                                                "type": "string"
+                                            },
+                                            "last_name": {
+                                                "type": "string"
+                                            },
+                                            "user_name": {
+                                                "type": "string"
+                                            },
+                                            "phone": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "email_verified": {
+                                                "type": "string"
+                                            },
+                                            "phone_verified": {
+                                                "type": "string"
+                                            },
+                                            "email_verified_at": {
+                                                "type": "string"
+                                            },
+                                            "phone_verified_at": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            },
+                                            "role": {
+                                                "type": "string"
+                                            },
+                                            "photo_url": {
+                                                "type": "string"
+                                            },
+                                            "is_active": {
+                                                "type": "string"
+                                            },
+                                            "is_deleted": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/get?": {
+            "get": {
+                "tags": [
+                    "USER"
+                ],
+                "summary": "Accessing a single user",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "description": "This is to query the user by the all means eg. by id, first name, last name, email, user name",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "first_name": {
+                                                    "type": "string"
+                                                },
+                                                "last_name": {
+                                                    "type": "string"
+                                                },
+                                                "user_name": {
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "photo_url": {
+                                                    "type": "string"
+                                                },
+                                                "is_active": {
+                                                    "type": "string"
+                                                },
+                                                "is_deleted": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/put": {
+            "post": {
+                "tags": [
+                    "USER"
+                ],
+                "summary": "Updating a user details",
+                "description": "NB: Make sure your request is in [ multipart/form-data ] encoding form because it can carry files",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "key",
+                        "description": "The user profile id of the person to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "values",
+                        "description": "Convert the updated data in an associative array and JSON Stringify your values",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "photo_url",
+                        "description": "Choose user profile image to upload, [ jpeg, jpg, png ]",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order/get": {
+            "get": {
+                "tags": [
+                    "ORDER"
+                ],
+                "summary": "Accessing all orders from the system, this is used by admin",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "code": {
+                                                "type": "string"
+                                            },
+                                            "user_id": {
+                                                "type": "string"
+                                            },
+                                            "rating": {
+                                                "type": "string"
+                                            },
+                                            "farmer_id": {
+                                                "type": "string"
+                                            },
+                                            "is_deleted": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            },
+                                            "payment_method": {
+                                                "type": "string"
+                                            },
+                                            "is_delivered": {
+                                                "type": "string"
+                                            },
+                                            "other_details": {
+                                                "type": "string"
+                                            },
+                                            "delivery_location": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "string"
+                                            },
+                                            "total_items": {
+                                                "type": "string"
+                                            },
+                                            "total_amount": {
+                                                "type": "string"
+                                            },
+                                            "user_name": {
+                                                "type": "string"
+                                            },
+                                            "farmer_name": {
+                                                "type": "string"
+                                            },
+                                            "farmer_photo": {
+                                                "type": "string"
+                                            },
+                                            "user_image": {
+                                                "type": "string"
+                                            },
+                                            "user_phone": {
+                                                "type": "string"
+                                            },
+                                            "user_email": {
+                                                "type": "string"
+                                            },
+                                            "farmer_phone": {
+                                                "type": "string"
+                                            },
+                                            "farmer_email": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order/get?": {
+            "get": {
+                "tags": [
+                    "ORDER"
+                ],
+                "summary": "Filtering the orders by given parameters",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Get the order using a given id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "description": "Search By id, code, user_id, farmer_id, farmer_name, farmer_email,farmer_phone, user_id,user_phone,user_email,user_name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_id",
+                        "type": "string",
+                        "description": "Get orders for a given user_id [ NOTE you can also combine { user_id && farmer_id } eg. ?user_id=1&farmer_id=2 ]"
+                    },
+                    {
+                        "in": "query",
+                        "name": "farmer_id",
+                        "type": "string",
+                        "description": "Get orders for a given farmer_id [ NOTE you can also combine { user_id && farmer_id } eg. ?user_id=1&farmer_id=2 ]"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "first_name": {
+                                                    "type": "string"
+                                                },
+                                                "last_name": {
+                                                    "type": "string"
+                                                },
+                                                "user_name": {
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "photo_url": {
+                                                    "type": "string"
+                                                },
+                                                "is_active": {
+                                                    "type": "string"
+                                                },
+                                                "is_deleted": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order/post": {
+            "post": {
+                "tags": [
+                    "ORDER"
+                ],
+                "summary": "Creating a new order into the system.",
+                "description": "",
+                "consumes": [
+                    "form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "user_id",
+                        "description": "The user id for person making an order",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "farmer_id",
+                        "description": "The farmer id to whom the order is going to",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "payment_method",
+                        "description": "Payment method the user is using",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "delivery_location",
+                        "description": "The location where order will be delivered to.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "items",
+                        "description": "JSON STRINGIFY Order details eg [{\"product_id\":1,\"quantity\":5,\"unit_price\":5000,\"discount\":50},{\"product_id\":2,\"quantity\":2,\"unit_price\":12000,\"discount\":0}]",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order/put": {
+            "put": {
+                "tags": [
+                    "ORDER"
+                ],
+                "summary": "Updating an order ",
+                "description": "This can include [ payment_method:string, is_delivered:{0,1}, other_details:string, delivery_location:string, rating:integer ]",
+                "consumes": [
+                    "form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "key",
+                        "description": "Order ID to update",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "values",
+                        "description": "JSON STRINGIFY your data, Fields include [ payment_method:string, is_delivered:{0,1}, other_details:string, delivery_location:string, rating:integer ]",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order/delete": {
+            "delete": {
+                "tags": [
+                    "ORDER"
+                ],
+                "summary": "Deleting an order from the system",
+                "description": "This is aim is to delete the order from the system",
+                "consumes": [
+                    "form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "key",
+                        "description": "Order ID to remove",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order_detail/get?": {
+            "get": {
+                "tags": [
+                    "ORDER DETAIL"
+                ],
+                "summary": "Filtering the orders details by given parameters",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Get the order using a given id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "description": "Search By id, code, user_id, farmer_id, farmer_name, farmer_email,farmer_phone, user_id,user_phone,user_email,user_name",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_id",
+                        "type": "string",
+                        "description": "Get orders for a given user_id [ NOTE you can also combine { user_id && farmer_id } eg. ?user_id=1&farmer_id=2 ]"
+                    },
+                    {
+                        "in": "query",
+                        "name": "farmer_id",
+                        "type": "string",
+                        "description": "Get orders for a given farmer_id [ NOTE you can also combine { user_id && farmer_id } eg. ?user_id=1&farmer_id=2 ]"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "first_name": {
+                                                    "type": "string"
+                                                },
+                                                "last_name": {
+                                                    "type": "string"
+                                                },
+                                                "user_name": {
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "phone_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "photo_url": {
+                                                    "type": "string"
+                                                },
+                                                "is_active": {
+                                                    "type": "string"
+                                                },
+                                                "is_deleted": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "headers": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order_detail/put": {
+            "put": {
+                "tags": [
+                    "ORDER DETAIL"
+                ],
+                "summary": "Updating order details",
+                "description": "Chose among these parameters specified [ quantity:integer ]",
+                "consumes": [
+                    "form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "key",
+                        "description": "Order Detail Id to update",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "values",
+                        "description": "JSON STRINGIFY your data, Parameters specified are [ quantity:integer ]",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/order_detail/delete": {
+            "delete": {
+                "tags": [
+                    "ORDER DETAIL"
+                ],
+                "summary": "Deleting an order detail from the system",
+                "description": "This is aim is to delete the order detail from the system",
+                "consumes": [
+                    "form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "key",
+                        "description": "Order ID to remove",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "PASSED": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "response": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "FAILED": {
+                        "description": "If credentials are wrong",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "enum": [
+                                        false
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "response": {
+                                    "type": "string",
+                                    "enum": [
+                                        null
+                                    ]
+                                },
+                                "error": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "API Model": {
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "any"
+                },
+                "response": {
+                    "type": "any"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "Authorization: Bearer __place_the_authentication_key_provided_when_logging__",
+            "in": "header"
+        }
+    }
+}

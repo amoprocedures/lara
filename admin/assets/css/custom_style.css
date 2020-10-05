@@ -1,0 +1,17 @@
+.new-nav-button{
+  background: #272e48;
+  color: #6384ea !important;
+}
+.new-nav-button:hover{
+  color: #6384ea !important;
+  background: #efefef !important;
+}
+.box{
+  flex: 1;
+  min-height: 46rem;
+}
+.box-body {
+  padding: 1rem 1rem;
+  flex: 1 1;
+  border-radius: 10px;
+}
